@@ -10,10 +10,10 @@ export const toastOptions: UseToastOptions = {
 const colorModeInLocalStorage =
   typeof window !== 'undefined'
     ? window.localStorage.getItem('chakra-ui-color-mode')
-    : 'system';
+    : 'light';
 
 const config = {
-  initialColorMode: 'system',
+  initialColorMode: 'light',
   useSystemColorMode: colorModeInLocalStorage === 'system',
 };
 
