@@ -17,6 +17,10 @@ const config = {
   useSystemColorMode: colorModeInLocalStorage === 'system',
 };
 
+const fonts = {
+  body: 'var(--font-lora)',
+};
+
 const colors = {
   brand: {
     50: '#F78DA7',
@@ -80,4 +84,4 @@ const components = {
   },
 };
 
-export const theme = extendTheme({ config, colors, components, styles });
+export const theme = extendTheme({ config, fonts, colors, components, styles });

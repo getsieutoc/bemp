@@ -4,7 +4,6 @@ import Content from './Content';
 export default function AboutUsPage() {
   return (
     <Box
-      backgroundImage={`url(/img/bgAboutUs.png)`}
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
       backgroundPosition="center"
