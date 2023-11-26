@@ -1,10 +1,6 @@
 import { default as argon2 } from 'argon2';
 
-if (!process.env.ARGON_SECRET) {
-  throw new Error('ARGON_SECRET variable is not defined');
-}
-
-const argonSecret = process.env.ARGON_SECRET;
+const argonSecret = process.env.ARGON_SECRET ?? '';
 
 const defaultOptions = {
   hashLength: 64,
