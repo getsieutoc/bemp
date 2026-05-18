@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: deploy-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -19,7 +19,19 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: docker/setup-qemu-action@v3
+      - name: Validate required build vars
+        env:
+          SATFLOW_URL: ${{ vars.SATFLOW_URL }}
+          NEXT_PUBLIC_ROOT_DOMAIN: ${{ vars.NEXT_PUBLIC_ROOT_DOMAIN }}
+        run: |
+          missing=()
+          [ -z "$SATFLOW_URL" ] && missing+=("SATFLOW_URL")
+          [ -z "$NEXT_PUBLIC_ROOT_DOMAIN" ] && missing+=("NEXT_PUBLIC_ROOT_DOMAIN")
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "::error::Missing GitHub Actions Variables: ${missing[*]}"
+            echo "Set them under Settings → Secrets and variables → Actions → Variables."
+            exit 1
+          fi
 
       - uses: docker/setup-buildx-action@v3
 
@@ -42,6 +54,10 @@ jobs:
           tags: |
             ${{ steps.img.outputs.name }}:latest
             ${{ steps.img.outputs.name }}:sha-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=${{ github.event.head_commit.timestamp }}
           build-args: |
             SATFLOW_URL=${{ vars.SATFLOW_URL }}
             NEXT_PUBLIC_ROOT_DOMAIN=${{ vars.NEXT_PUBLIC_ROOT_DOMAIN }}
@@ -53,7 +69,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.EASYPANEL_WEBHOOK_BEMP }}
         run: |
           if [ -z "$WEBHOOK_URL" ]; then
-            echo "EASYPANEL_WEBHOOK secret not set — skipping deploy."
+            echo "EASYPANEL_WEBHOOK_BEMP secret not set — skipping deploy."
             exit 0
           fi
           curl -fsSL -X POST "$WEBHOOK_URL" --max-time 30 \
