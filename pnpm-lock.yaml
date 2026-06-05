@@ -99,8 +99,8 @@ importers:
         specifier: 2.2.4
         version: 2.2.4(react@18.2.0)
       tinymce:
-        specifier: 6.7.1
-        version: 6.7.1
+        specifier: 7.9.3
+        version: 7.9.3
       uuid:
         specifier: 9.0.1
         version: 9.0.1
@@ -2647,6 +2647,9 @@ packages:
 
   tinymce@6.7.1:
     resolution: {integrity: sha512-SIGJgWk2d/X59VbO+i81QfNx2EP1P5t+sza2/1So3OLGtmMBhEJMag7sN/Mo8sq4s0niwb65Z51yLju32jP11g==}
+
+  tinymce@7.9.3:
+    resolution: {integrity: sha512-Mtm54U5YJ6Pyo/GaAx+JSHXTGEuxrg2AowVWCD9zy1eBolp5Ub7S1rTtsyQdxhPegfhLuR3VLiTKGw1tacv09g==}
 
   to-regex-range@5.0.1:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
@@ -5755,6 +5758,8 @@ snapshots:
       picomatch: 4.0.4
 
   tinymce@6.7.1: {}
+
+  tinymce@7.9.3: {}
 
   to-regex-range@5.0.1:
     dependencies:
